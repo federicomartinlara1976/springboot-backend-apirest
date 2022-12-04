@@ -16,6 +16,7 @@ spring:
     locale: es_ES
   
   servlet:
-    multipart.max-file-size: 10MB
-    multipart.max-request-size: 10MB  
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB  
     
