@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/db_springboot_backend?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: jboss
+    password: mre13185
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    hibernate.ddl-auto: update
+
+  data.mongodb.uri: mongodb://localhost:27017/springboot_chat
+
+  jackson:
+    time-zone: Europe/Madrid
+    locale: es_ES
+  
+  servlet:
+    multipart.max-file-size: 10MB
+    multipart.max-request-size: 10MB  
+    
