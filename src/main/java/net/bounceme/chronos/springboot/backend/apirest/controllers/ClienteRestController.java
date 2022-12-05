@@ -105,7 +105,6 @@ public class ClienteRestController {
 	 * @param cliente
 	 * @return
 	 */
-	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/clientes")
 	public ResponseEntity<?> create(@Valid @RequestBody Cliente cliente, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
