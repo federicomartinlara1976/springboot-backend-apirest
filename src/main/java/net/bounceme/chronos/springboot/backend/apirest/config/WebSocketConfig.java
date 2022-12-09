@@ -1,4 +1,4 @@
-package net.bounceme.chronos.springboot.backend.apirest;
+package net.bounceme.chronos.springboot.backend.apirest.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
