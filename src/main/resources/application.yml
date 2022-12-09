@@ -9,7 +9,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate.ddl-auto: update
 
-  data.mongodb.uri: mongodb://localhost:27017/springboot_chat
+  data.mongodb.uri: mongodb://localhost:27017/usuarios
 
   jackson:
     time-zone: Europe/Madrid
