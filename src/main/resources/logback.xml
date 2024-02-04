@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<property name="HOME_LOG" value="logs/app.log"/>
-
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
-                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
-            </Pattern>
-        </layout>
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      		<charset>UTF-8</charset>
+      		<layout class="ch.qos.logback.classic.PatternLayout">
+        		<pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+      		</layout>         
+    	</encoder>
     </appender>
     
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${HOME_LOG}</file>
-        <append>true</append>
-        <immediateFlush>true</immediateFlush>
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<file>${LOG_DIR}/springboot-backend-apirest.log</file>
+    	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      		<!-- daily rollover -->
+      		<fileNamePattern>${LOG_DIR}/springboot-backend-apirest.%d{dd-MM-yyyy}.%i.log</fileNamePattern>
+      		<timeBasedFileNamingAndTriggeringPolicy
+          		class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+          		<!-- or whenever the file size reaches 50MB -->
+        		<maxFileSize>50MB</maxFileSize>
+      		</timeBasedFileNamingAndTriggeringPolicy>
+      		<!-- keep 30 days' worth of history -->
+      		<maxHistory>30</maxHistory>
+    	</rollingPolicy>
+    	<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      		<charset>UTF-8</charset>
+      		<layout class="ch.qos.logback.classic.PatternLayout">
+        		<pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+      		</layout>         
+    	</encoder>
+  	</appender>
     
     <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
-        <graylogHost>192.168.1.135</graylogHost>
+        <graylogHost>localhost</graylogHost>
         <graylogPort>12201</graylogPort>
         <maxChunkSize>508</maxChunkSize>
         <useCompression>true</useCompression>
@@ -41,18 +52,19 @@
                 <pattern>%m%n</pattern>
             </fullPatternLayout>
             <numbersAsString>false</numbersAsString>
-            <staticField>application:CHGuadalquivir</staticField>
+            <staticField>application:springboot-backend-apirest</staticField>
             <staticField>environment:DEV</staticField>
         </encoder>
     </appender>
 
     <logger name="net.bounceme.chronos.springboot.backend.apirest" level="info" additivity="false">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="GELF"/>
         <appender-ref ref="FILE"/>
     </logger>
 
     <root level="error">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="GELF"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>

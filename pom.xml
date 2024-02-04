@@ -12,9 +12,9 @@
 	</parent>
 
 	<groupId>net.bounceme.chronos.springboot.backend.apirest</groupId>
-	<artifactId>spring-boot-backend-apirest</artifactId>
+	<artifactId>springboot-backend-apirest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-backend-apirest</name>
+	<name>springboot-backend-apirest</name>
 	<description>Register for small portals</description>
 
 	<properties>
@@ -173,5 +173,24 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<finalName>springboot-backend-apirest-dev</finalName>
+			</build>
+		</profile>
+
+		<profile>
+			<id>pro</id>
+			<build>
+				<finalName>springboot-backend-apirest</finalName>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
